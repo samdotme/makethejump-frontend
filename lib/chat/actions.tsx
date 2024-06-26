@@ -500,22 +500,23 @@ export const AI = createAI<AIState, UIState>({
   },
   initialUIState: [],
   initialAIState: { chatId: nanoid(), messages: [] },
-  onGetUIState: async () => {
-    'use server'
+  // onGetUIState: async () => {
+  //   'use server'
 
-    const session = await auth()
+  //   const session = await auth()
 
-    if (session && session.user) {
-      const aiState = getAIState()
+  //   if (session && session.user) {
+  //     const aiState = getAIState()
 
-      if (aiState) {
-        const uiState = getUIStateFromAIState(aiState)
-        return uiState
-      }
-    } else {
-      return
-    }
-  },
+  //     // if (aiState) {
+  //     //   const uiState = getUIStateFromAIState(aiState)
+  //     //   return uiState
+  //     // }
+  //     return
+  //   } else {
+  //     return
+  //   }
+  // },
   onSetAIState: async ({ state }) => {
     'use server'
 
