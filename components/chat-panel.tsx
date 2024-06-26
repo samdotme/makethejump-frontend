@@ -36,24 +36,24 @@ export function ChatPanel({
 
   const exampleMessages = [
     {
-      heading: 'What are the',
-      subheading: 'trending memecoins today?',
-      message: `What are the trending memecoins today?`
+      heading: 'What breed of cat is',
+      subheading: 'the most friendly?',
+      message: `What breed of cat is the most friendly?`
     },
     {
-      heading: 'What is the price of',
-      subheading: '$DOGE right now?',
-      message: 'What is the price of $DOGE right now?'
+      heading: 'How many cats',
+      subheading: 'are available for adoption right now?',
+      message: 'How many cats are available for adoption right now?'
     },
     {
-      heading: 'I would like to buy',
-      subheading: '42 $DOGE',
-      message: `I would like to buy 42 $DOGE`
+      heading: 'Give me a form',
+      subheading: 'to adopt your oldest cat',
+      message: `Give me a form to adopt your oldest cat`
     },
     {
-      heading: 'What are some',
-      subheading: `recent events about $DOGE?`,
-      message: `What are some recent events about $DOGE?`
+      heading: 'Which of your cats',
+      subheading: `is best for a reclusive author?`,
+      message: `Which of your cats is best for a reclusive author?`
     }
   ]
 
