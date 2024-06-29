@@ -104,6 +104,78 @@ function IconOpenAI({ className, ...props }: React.ComponentProps<'svg'>) {
   )
 }
 
+function IconRobot({ className, ...props }: React.ComponentProps<'svg'>) {
+  return (
+    <svg
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      role="img"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn('size-4', className)}
+      {...props}
+    >
+      <title>Bot icon</title>
+      <defs id="defs1">
+        <clipPath clipPathUnits="userSpaceOnUse" id="clipPath4">
+          <ellipse
+            id="ellipse4"
+            cx="61.814919"
+            cy="113.76101"
+            rx="6.3458014"
+            ry="1.6304967"
+            d="m 68.16072,113.76101 a 6.3458014,1.6304967 0 0 1 -6.345801,1.6305 6.3458014,1.6304967 0 0 1 -6.345802,-1.6305 6.3458014,1.6304967 0 0 1 6.345802,-1.6305 6.3458014,1.6304967 0 0 1 6.345801,1.6305 z"
+          />
+          <path
+            id="lpe_path-effect4"
+            className="powerclip"
+            d="M 50.356988,106.79412 H 73.048591 V 122.1948 H 50.356988 Z m 17.803732,6.96689 a 6.3458014,1.6304967 0 0 0 -6.345801,-1.6305 6.3458014,1.6304967 0 0 0 -6.345802,1.6305 6.3458014,1.6304967 0 0 0 6.345802,1.6305 6.3458014,1.6304967 0 0 0 6.345801,-1.6305 z"
+          />
+        </clipPath>
+      </defs>
+      <g id="layer1" transform="translate(-34.294331,-90.461421)">
+        <ellipse
+          id="path1"
+          cx="37.485126"
+          cy="93.636421"
+          rx="2.8432837"
+          ry="3.175"
+        />
+        <rect
+          id="rect1"
+          width="6.3499999"
+          height="2.4694443"
+          x="34.294331"
+          y="92.284111"
+          rx="0.46797115"
+          ry="0.87094623"
+        />
+        <rect
+          id="rect2"
+          width="3.8226368"
+          height="3.3513887"
+          x="35.589603"
+          y="91.990128"
+          rx="0.70195669"
+          ry="1.9596291"
+        />
+        <g
+          id="g2"
+          transform="matrix(0.11699278,0,0,0.21773656,30.556583,70.746252)"
+        >
+          <circle id="path2" cx="52.876171" cy="105.26285" r="2.6498296" />
+          <circle id="circle2" cx="65.837807" cy="105.26285" r="2.6498296" />
+        </g>
+        <path
+          id="path3"
+          clip-path="url(#clipPath4)"
+          d="m 68.048591,114.49446 a 6.3458014,2.700341 0 0 1 -6.345802,2.70034 6.3458014,2.700341 0 0 1 -6.345801,-2.70034 6.3458014,2.700341 0 0 1 6.345801,-2.70034 6.3458014,2.700341 0 0 1 6.345802,2.70034 z"
+          transform="matrix(0.11699278,0,0,0.21773656,30.282141,70.764665)"
+        />
+      </g>
+    </svg>
+  )
+}
+
 function IconVercel({ className, ...props }: React.ComponentProps<'svg'>) {
   return (
     <svg
@@ -480,6 +552,7 @@ export {
   IconEdit,
   IconNextChat,
   IconOpenAI,
+  IconRobot,
   IconVercel,
   IconGitHub,
   IconSeparator,
