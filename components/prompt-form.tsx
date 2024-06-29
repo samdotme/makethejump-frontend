@@ -5,7 +5,7 @@ import Textarea from 'react-textarea-autosize'
 
 import { useActions, useUIState } from 'ai/rsc'
 
-import { UserMessage } from './stocks/message'
+import { BotMessage, UserMessage } from './stocks/message'
 import { type AI } from '@/lib/chat/actions'
 import { Button } from '@/components/ui/button'
 import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
@@ -62,7 +62,14 @@ export function PromptForm({
         ])
 
         // Submit and get response message
-        const responseMessage = await submitUserMessage(value)
+        // const responseMessage = await submitUserMessage(value)
+        // Todo: Update this to be dynamic once API is hooked up.
+        const responseMessage = {
+          id: nanoid(),
+          display: (
+            <BotMessage content="I'm not implemented yet. Check back after module 2 is completed!" />
+          )
+        }
         setMessages(currentMessages => [...currentMessages, responseMessage])
       }}
     >

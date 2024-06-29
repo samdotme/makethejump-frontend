@@ -4,7 +4,7 @@
 </a>
 
 <p align="center">
-  A Cat Cafe intelligent chatbot backed by an LLM.
+  A Cat Cafe intelligent chatbot by [Your Name] backed by an LLM.
 </p>
 
 <p align="center">
