@@ -5,12 +5,13 @@ import { ChatList } from '@/components/chat-list'
 import { ChatPanel } from '@/components/chat-panel'
 import { EmptyScreen } from '@/components/empty-screen'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
-import { useEffect, useState } from 'react'
-import { useUIState, useAIState } from 'ai/rsc'
+import { useContext, useEffect, useState } from 'react'
+// import { useUIState, useAIState } from 'ai/rsc'
 import { Message, Session } from '@/lib/types'
 import { usePathname, useRouter } from 'next/navigation'
 import { useScrollAnchor } from '@/lib/hooks/use-scroll-anchor'
 import { toast } from 'sonner'
+import { ChatMemoryContext } from '@/lib/providers/chat-memory'
 
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
@@ -23,8 +24,9 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
   const router = useRouter()
   const path = usePathname()
   const [input, setInput] = useState('')
-  const [messages] = useUIState()
-  const [aiState] = useAIState()
+  // const { messages, addMessage } = useMessages()
+  // const [aiState] = useAIState()
+  const [messages] = useContext(ChatMemoryContext)
 
   const [_, setNewChatId] = useLocalStorage('newChatId', id)
 
@@ -37,11 +39,10 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
   }, [id, path, session?.user, messages])
 
   useEffect(() => {
-    const messagesLength = aiState.messages?.length
-    if (messagesLength === 2) {
+    if (messages.length === 2) {
       router.refresh()
     }
-  }, [aiState.messages, router])
+  }, [messages, router])
 
   useEffect(() => {
     setNewChatId(id)
@@ -55,6 +56,8 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
 
   const { messagesRef, scrollRef, visibilityRef, isAtBottom, scrollToBottom } =
     useScrollAnchor()
+
+  console.log(messages)
 
   return (
     <div
