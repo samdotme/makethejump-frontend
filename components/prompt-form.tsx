@@ -3,10 +3,6 @@
 import * as React from 'react'
 import Textarea from 'react-textarea-autosize'
 
-// import { useActions, useUIState } from 'ai/rsc'
-
-import { BotMessage, UserMessage } from './stocks/message'
-import { type AI } from '@/lib/chat/actions'
 import { Button } from '@/components/ui/button'
 import { IconArrowElbow, IconPlus } from '@/components/ui/icons'
 import {
@@ -18,7 +14,8 @@ import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
 import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
 import { ChatMemoryContext, ChatMessage } from '@/lib/providers/chat-memory'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+import useLlmResponse from '@/lib/hooks/use-get-llm-response'
 
 export function PromptForm({
   input,
@@ -30,9 +27,8 @@ export function PromptForm({
   const router = useRouter()
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  // const { submitUserMessage } = useActions()
-  // const { messages, addMessage } = useMessages()
-  // const [messages, setMessages] = React.useState<ChatMessage[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
   const [messages, setMessages] = useContext(ChatMemoryContext)
 
   React.useEffect(() => {
@@ -41,42 +37,52 @@ export function PromptForm({
     }
   }, [])
 
-  return (
-    <form
-      ref={formRef}
-      onSubmit={async (e: any) => {
-        e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
 
-        // Blur focus on mobile
-        if (window.innerWidth < 600) {
-          e.target['message']?.blur()
-        }
+    if (window.innerWidth < 600) {
+      ;(e.target as HTMLFormElement)['message']?.blur()
+    }
 
-        const value = input.trim()
-        setInput('')
-        if (!value) return
+    const value = input.trim()
+    setInput('')
+    if (!value) return
 
-        // Optimistically add user message UI
-        setMessages([
-          ...messages,
-          {
-            type: 'user',
-            content: value
-          }
-        ])
+    setMessages([
+      ...messages,
+      {
+        id: nanoid(),
+        type: 'user',
+        content: value
+      }
+    ])
 
-        // Submit and get response message
-        // const responseMessage = await submitUserMessage(value)
-        // Todo: Update this to be dynamic once API is hooked up.
-        const responseMessage = {
+    try {
+      const res = await fetch(
+        `http://localhost:8000/makethejump/bot?prompt=${encodeURIComponent(value)}`
+      )
+      if (!res.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const { response } = await res.json()
+      // setResponse(response)
+      setMessages(prevMessages => [
+        ...prevMessages,
+        {
           id: nanoid(),
-          display: (
-            <BotMessage content="I'm not implemented yet. Check back after module 2 is completed!" />
-          )
+          type: 'bot',
+          content: response ?? ''
         }
-        // setMessages(currentMessages => [...currentMessages, responseMessage])
-      }}
-    >
+      ])
+    } catch (error) {
+      setError(error as Error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <form ref={formRef} onSubmit={handleSubmit}>
       <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-8 sm:rounded-md sm:border sm:px-12">
         <Tooltip>
           <TooltipTrigger asChild>

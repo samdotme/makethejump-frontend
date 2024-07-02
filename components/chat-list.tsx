@@ -44,7 +44,7 @@ export function ChatList({ messages, session, isShared }: ChatList) {
       ) : null}
 
       {messages.map((message, index) => (
-        <div key={message.content}>
+        <div key={message.id}>
           {message.type === 'user' ? (
             <UserMessage>{message.content}</UserMessage>
           ) : (

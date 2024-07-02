@@ -1,6 +1,7 @@
 import React, { createContext, use, useEffect, useState } from 'react'
 
 export interface ChatMessage {
+  id: string
   content: string
   type: 'user' | 'bot'
 }

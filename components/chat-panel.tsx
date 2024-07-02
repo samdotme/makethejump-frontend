@@ -1,17 +1,12 @@
 import * as React from 'react'
 
-import { shareChat } from '@/app/actions'
 import { Button } from '@/components/ui/button'
 import { PromptForm } from '@/components/prompt-form'
 import { ButtonScrollToBottom } from '@/components/button-scroll-to-bottom'
 import { IconShare } from '@/components/ui/icons'
 import { FooterText } from '@/components/footer'
-import { ChatShareDialog } from '@/components/chat-share-dialog'
-import { useAIState, useActions, useUIState } from 'ai/rsc'
-import type { AI } from '@/lib/chat/actions'
 import { nanoid } from 'nanoid'
-import { UserMessage } from './stocks/message'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ChatMemoryContext } from '@/lib/providers/chat-memory'
 
 export interface ChatPanelProps {
@@ -31,13 +26,10 @@ export function ChatPanel({
   isAtBottom,
   scrollToBottom
 }: ChatPanelProps) {
-  const [aiState] = useAIState()
-  // const [messages, setMessages] = useUIState<typeof AI>()
   const [messages, setMessages] = useContext(ChatMemoryContext)
-  // const { submitUserMessage } = useActions()
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
-
-  // console.log(messages)
 
   const exampleMessages = [
     {
@@ -82,20 +74,34 @@ export function ChatPanel({
                   setMessages([
                     ...messages,
                     {
+                      id: nanoid(),
                       type: 'user',
                       content: example.message
                     }
                   ])
 
-                  // Todo: Update once we have the response working.
-                  // const responseMessage = await submitUserMessage(
-                  //   example.message
-                  // )
-
-                  // setMessages(currentMessages => [
-                  //   ...currentMessages,
-                  //   responseMessage
-                  // ])
+                  try {
+                    const res = await fetch(
+                      `http://localhost:8000/makethejump/bot?prompt=${encodeURIComponent(example.message)}`
+                    )
+                    if (!res.ok) {
+                      throw new Error('Network response was not ok')
+                    }
+                    const { response } = await res.json()
+                    // setResponse(response)
+                    setMessages(prevMessages => [
+                      ...prevMessages,
+                      {
+                        id: nanoid(),
+                        type: 'bot',
+                        content: response ?? ''
+                      }
+                    ])
+                  } catch (error) {
+                    setError(error as Error)
+                  } finally {
+                    setLoading(false)
+                  }
                 }}
               >
                 <div className="text-sm font-semibold">{example.heading}</div>
@@ -118,17 +124,6 @@ export function ChatPanel({
                     <IconShare className="mr-2" />
                     Share
                   </Button>
-                  <ChatShareDialog
-                    open={shareDialogOpen}
-                    onOpenChange={setShareDialogOpen}
-                    onCopy={() => setShareDialogOpen(false)}
-                    shareChat={shareChat}
-                    chat={{
-                      id,
-                      title,
-                      messages: aiState.messages
-                    }}
-                  />
                 </>
               ) : null}
             </div>
