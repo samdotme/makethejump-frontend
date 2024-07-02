@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Textarea from 'react-textarea-autosize'
 
-import { useActions, useUIState } from 'ai/rsc'
+// import { useActions, useUIState } from 'ai/rsc'
 
 import { BotMessage, UserMessage } from './stocks/message'
 import { type AI } from '@/lib/chat/actions'
@@ -17,6 +17,8 @@ import {
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
 import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
+import { ChatMemoryContext, ChatMessage } from '@/lib/providers/chat-memory'
+import { useContext } from 'react'
 
 export function PromptForm({
   input,
@@ -28,8 +30,10 @@ export function PromptForm({
   const router = useRouter()
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  const { submitUserMessage } = useActions()
-  const [_, setMessages] = useUIState<typeof AI>()
+  // const { submitUserMessage } = useActions()
+  // const { messages, addMessage } = useMessages()
+  // const [messages, setMessages] = React.useState<ChatMessage[]>([])
+  const [messages, setMessages] = useContext(ChatMemoryContext)
 
   React.useEffect(() => {
     if (inputRef.current) {
@@ -53,11 +57,11 @@ export function PromptForm({
         if (!value) return
 
         // Optimistically add user message UI
-        setMessages(currentMessages => [
-          ...currentMessages,
+        setMessages([
+          ...messages,
           {
-            id: nanoid(),
-            display: <UserMessage>{value}</UserMessage>
+            type: 'user',
+            content: value
           }
         ])
 
@@ -70,7 +74,7 @@ export function PromptForm({
             <BotMessage content="I'm not implemented yet. Check back after module 2 is completed!" />
           )
         }
-        setMessages(currentMessages => [...currentMessages, responseMessage])
+        // setMessages(currentMessages => [...currentMessages, responseMessage])
       }}
     >
       <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-8 sm:rounded-md sm:border sm:px-12">

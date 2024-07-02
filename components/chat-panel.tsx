@@ -11,6 +11,8 @@ import { useAIState, useActions, useUIState } from 'ai/rsc'
 import type { AI } from '@/lib/chat/actions'
 import { nanoid } from 'nanoid'
 import { UserMessage } from './stocks/message'
+import { useContext } from 'react'
+import { ChatMemoryContext } from '@/lib/providers/chat-memory'
 
 export interface ChatPanelProps {
   id?: string
@@ -30,9 +32,12 @@ export function ChatPanel({
   scrollToBottom
 }: ChatPanelProps) {
   const [aiState] = useAIState()
-  const [messages, setMessages] = useUIState<typeof AI>()
-  const { submitUserMessage } = useActions()
+  // const [messages, setMessages] = useUIState<typeof AI>()
+  const [messages, setMessages] = useContext(ChatMemoryContext)
+  // const { submitUserMessage } = useActions()
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
+
+  // console.log(messages)
 
   const exampleMessages = [
     {
@@ -74,22 +79,23 @@ export function ChatPanel({
                   index > 1 && 'hidden md:block'
                 }`}
                 onClick={async () => {
-                  setMessages(currentMessages => [
-                    ...currentMessages,
+                  setMessages([
+                    ...messages,
                     {
-                      id: nanoid(),
-                      display: <UserMessage>{example.message}</UserMessage>
+                      type: 'user',
+                      content: example.message
                     }
                   ])
 
-                  const responseMessage = await submitUserMessage(
-                    example.message
-                  )
+                  // Todo: Update once we have the response working.
+                  // const responseMessage = await submitUserMessage(
+                  //   example.message
+                  // )
 
-                  setMessages(currentMessages => [
-                    ...currentMessages,
-                    responseMessage
-                  ])
+                  // setMessages(currentMessages => [
+                  //   ...currentMessages,
+                  //   responseMessage
+                  // ])
                 }}
               >
                 <div className="text-sm font-semibold">{example.heading}</div>
