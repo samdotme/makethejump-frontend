@@ -15,7 +15,6 @@ import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
 import { ChatMemoryContext, ChatMessage } from '@/lib/providers/chat-memory'
 import { useContext, useState } from 'react'
-import useLlmResponse from '@/lib/hooks/use-get-llm-response'
 
 export function PromptForm({
   input,
@@ -59,7 +58,7 @@ export function PromptForm({
 
     try {
       const res = await fetch(
-        `http://localhost:8000/makethejump/bot?prompt=${encodeURIComponent(value)}`
+        `${process.env.NEXT_PUBLIC_BOT_ENDPOINT}/makethejump/bot?prompt=${encodeURIComponent(value)}`
       )
       if (!res.ok) {
         throw new Error('Network response was not ok')
