@@ -82,7 +82,7 @@ export function ChatPanel({
 
                   try {
                     const res = await fetch(
-                      `http://localhost:8000/makethejump/bot?prompt=${encodeURIComponent(example.message)}`
+                      `${process.env.NEXT_PUBLIC_BOT_ENDPOINT}/makethejump/bot?prompt=${encodeURIComponent(example.message)}`
                     )
                     if (!res.ok) {
                       throw new Error('Network response was not ok')
