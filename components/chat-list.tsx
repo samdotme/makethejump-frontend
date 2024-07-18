@@ -15,11 +15,11 @@ export interface ChatList {
 }
 
 export function ChatList({ messages, session, isShared }: ChatList) {
+  const [isLoading] = useContext(ChatLoadingContext)
+
   if (!messages.length) {
     return null
   }
-
-  const [isLoading] = useContext(ChatLoadingContext)
 
   return (
     <div className="relative mx-auto max-w-2xl px-4">
