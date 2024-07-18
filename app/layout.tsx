@@ -12,11 +12,10 @@ export const metadata = {
     ? new URL(`https://${process.env.VERCEL_URL}`)
     : undefined,
   title: {
-    default: 'Cat Cafe Chatbot by [Your Name]',
+    default: 'Cat Cafe Chatbot',
     template: `%s - MakeTheJump.ai LLM Masterclass`
   },
-  description:
-    'A Cat Cafe intelligent chatbot by [Your Name] backed by an LLM.',
+  description: 'A Cat Cafe intelligent chatbot backed by an LLM.',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',

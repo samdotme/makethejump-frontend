@@ -1,52 +1,44 @@
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="https://chat.vercel.ai/opengraph-image.png">
-  <h1 align="center">The Cat Cafe</h1>
-</a>
+
+<h1 align="center">The Cat Cafe</h1>
 
 <p align="center">
-  A Cat Cafe intelligent chatbot by [Your Name] backed by an LLM.
+  This is the front end for an intelligent chatbot that powers a fictional Cat Cafe adoption service. It's backed by an LLM that uses your proprietary data and keeps it private.
 </p>
 
 <p align="center">
-  <a href="#python-installation"><strong>Python Installation</strong></a> ·
-  <a href="#features"><strong>Features</strong></a> ·
+  <strong>Build your own at <a href="http://makethejump.ai/developer">MakeTheJump.ai/developer</a></strong>
 </p>
 <br/>
 
-## Python Installation
+## Getting Started
 
-We'll follow roughly the same installation procedures depending on whether you're using Mac or Windows. A video is linked in each which breaks down the process step by step.
+### Install NodeJS
+The first thing you'll need is to install NodeJS. If you are front end or full stack developer, you can likely use whatever you currently have installed.
 
-### Mac Python Installation
+Go to the [NodeJS download page](https://nodejs.org/en/download/prebuilt-installer) and follow the instructions there.
 
-Visit the [Anaconda download page](https://www.anaconda.com/download/success)
+Once you have completed the download and installation, confirm that everything works by running the following commands in your terminal.
 
-Click the button to download for Mac.
+    node --version
 
-[Mac download button](./media/mac-download-button.png)
+Response should be v20.15.1.
 
-Then choose your CPU version.
+    npm --version
 
-[Choose between Intel and Apple Silicon](./media/intel-vs-applesilicon.png)
+Response should be 10.7.0.
 
-If you're not sure which version you are, check out this [how-to](https://support.apple.com/en-us/116943) from Apple Support.
+## Set Up Environment Variables
 
-Give this a bit of time, depending on your internet speed.
+You'll need to set a few environment variables to get this front end app to connect properly to the backend.
 
-![Mac Anaconda download](./media/mac-download-size.png)
+Copy the file `.env.example` and paste it. Then rename it to `.env.local`.
 
-Follow the installation instructions to get it installed.
+Then change `NEXT_PUBLIC_AUTHOR_NAME` to be your name.
 
-Now open your terminal and run the following commands:
+## Run Locally
 
-    conda create --name makethejump python=3.11
+To start the project locally, you can run the following command:
 
-    conda activate makethejump
+    npm run dev
 
-#### Any issues?
-
-Reach out to me personally at sam@samschneider.me with any issues you experience. I'll make sure we get you on track.
-
-### Windows Python Installation
-
-Visit the [Anaconda download page](https://www.anaconda.com/download/success)
+You should see some text pop up in your terminal with a link to http://localhost:3000. Open this link in your browser.

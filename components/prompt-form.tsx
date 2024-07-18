@@ -71,7 +71,6 @@ export function PromptForm({
         throw new Error('Network response was not ok')
       }
       const { response } = await res.json()
-      // setResponse(response)
       setMessages(prevMessages => [
         ...prevMessages,
         {

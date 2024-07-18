@@ -10,7 +10,8 @@ export function EmptyScreen() {
       <div className="flex flex-col gap-2 rounded-lg border bg-background p-8">
         <h1 className="text-lg font-semibold">The Cat Cafe</h1>
         <p className="leading-normal text-muted-foreground">
-          Hi, I'm an intelligent chatbot built by [Your name here].{' '}
+          Hi, I'm an intelligent chatbot built by{' '}
+          {process.env.NEXT_PUBLIC_AUTHOR_NAME}.{' '}
         </p>
         <p className="leading-normal text-muted-foreground">I can currently</p>
         <ul className="list-disc list-inside text-muted-foreground">
