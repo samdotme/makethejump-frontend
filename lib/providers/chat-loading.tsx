@@ -6,22 +6,28 @@ export interface ChatMessage {
   type: 'user' | 'bot'
 }
 
-type ChatLoadingContextType = [
-  boolean,
-  React.Dispatch<React.SetStateAction<boolean>>
-]
+type ChatLoadingContextType = {
+  loading: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  error: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+}
 
 // Create the context with an initial default value of type ChatMemoryContextType
-export const ChatLoadingContext = createContext<ChatLoadingContextType>([
-  false,
-  () => null
-])
+export const ChatLoadingContext = createContext<ChatLoadingContextType>({
+  loading: [false, () => null],
+  error: [false, () => null]
+})
 
 const ChatLoadingProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
 
   return (
-    <ChatLoadingContext.Provider value={[isLoading, setIsLoading]}>
+    <ChatLoadingContext.Provider
+      value={{
+        loading: [isLoading, setIsLoading],
+        error: [isError, setIsError]
+      }}
+    >
       {children}
     </ChatLoadingContext.Provider>
   )
