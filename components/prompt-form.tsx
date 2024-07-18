@@ -15,6 +15,7 @@ import { nanoid } from 'nanoid'
 import { useRouter } from 'next/navigation'
 import { ChatMemoryContext, ChatMessage } from '@/lib/providers/chat-memory'
 import { useContext, useState } from 'react'
+import { ChatLoadingContext } from '@/lib/providers/chat-loading'
 
 export function PromptForm({
   input,
@@ -26,7 +27,7 @@ export function PromptForm({
   const router = useRouter()
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useContext(ChatLoadingContext)
   const [error, setError] = useState<Error | null>(null)
   const [messages, setMessages] = useContext(ChatMemoryContext)
 
@@ -38,6 +39,8 @@ export function PromptForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    setIsLoading(true)
 
     if (window.innerWidth < 600) {
       ;(e.target as HTMLFormElement)['message']?.blur()
@@ -76,7 +79,7 @@ export function PromptForm({
     } catch (error) {
       setError(error as Error)
     } finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }
 

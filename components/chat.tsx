@@ -6,12 +6,12 @@ import { ChatPanel } from '@/components/chat-panel'
 import { EmptyScreen } from '@/components/empty-screen'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import { useContext, useEffect, useState } from 'react'
-// import { useUIState, useAIState } from 'ai/rsc'
 import { Message, Session } from '@/lib/types'
 import { usePathname, useRouter } from 'next/navigation'
 import { useScrollAnchor } from '@/lib/hooks/use-scroll-anchor'
 import { toast } from 'sonner'
 import { ChatMemoryContext } from '@/lib/providers/chat-memory'
+import { ChatLoadingContext } from '@/lib/providers/chat-loading'
 
 export interface ChatProps extends React.ComponentProps<'div'> {
   initialMessages?: Message[]
@@ -24,8 +24,6 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
   const router = useRouter()
   const path = usePathname()
   const [input, setInput] = useState('')
-  // const { messages, addMessage } = useMessages()
-  // const [aiState] = useAIState()
   const [messages] = useContext(ChatMemoryContext)
 
   const [_, setNewChatId] = useLocalStorage('newChatId', id)

@@ -8,6 +8,7 @@ import { FooterText } from '@/components/footer'
 import { nanoid } from 'nanoid'
 import { useContext, useState } from 'react'
 import { ChatMemoryContext } from '@/lib/providers/chat-memory'
+import { ChatLoadingContext } from '@/lib/providers/chat-loading'
 
 export interface ChatPanelProps {
   id?: string
@@ -27,7 +28,8 @@ export function ChatPanel({
   scrollToBottom
 }: ChatPanelProps) {
   const [messages, setMessages] = useContext(ChatMemoryContext)
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useContext(ChatLoadingContext)
   const [error, setError] = useState<Error | null>(null)
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
 
@@ -100,7 +102,7 @@ export function ChatPanel({
                   } catch (error) {
                     setError(error as Error)
                   } finally {
-                    setLoading(false)
+                    setIsLoading(false)
                   }
                 }}
               >

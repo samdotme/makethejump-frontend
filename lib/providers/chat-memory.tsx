@@ -17,16 +17,8 @@ export const ChatMemoryContext = createContext<ChatMemoryContextType>([
   () => {}
 ])
 
-// export const ChatMemoryContext = createContext<
-//   ChatMessage[] | React.Dispatch<React.SetStateAction<ChatMessage[]>>
-// >([])
-
 const ChatMemoryProvider = ({ children }: { children: React.ReactNode }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([])
-
-  // useEffect(() => {
-  //   setMessages([{ content: 'Hello', type: 'bot' }])
-  // }, [])
 
   return (
     <ChatMemoryContext.Provider value={[messages, setMessages]}>
