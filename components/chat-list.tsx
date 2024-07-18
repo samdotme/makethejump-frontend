@@ -1,5 +1,4 @@
 import { Separator } from '@/components/ui/separator'
-import { UIState } from '@/lib/chat/actions'
 import { Session } from '@/lib/types'
 import Link from 'next/link'
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons'
@@ -15,7 +14,10 @@ export interface ChatList {
 }
 
 export function ChatList({ messages, session, isShared }: ChatList) {
-  const [isLoading] = useContext(ChatLoadingContext)
+  const {
+    loading: [isLoading],
+    error: [isError]
+  } = useContext(ChatLoadingContext)
 
   if (!messages.length) {
     return null
@@ -61,6 +63,18 @@ export function ChatList({ messages, session, isShared }: ChatList) {
         <div key="loading">
           <Separator className="my-4" />
           <BotMessage content={'Bot is typing...'} />
+        </div>
+      )}
+      {isError && (
+        <div key="loading">
+          <Separator className="my-4" />
+          <span className="text-red-600">
+            <BotMessage
+              content={
+                'Bot ran into an error. Check Developer Console for details.'
+              }
+            />
+          </span>
         </div>
       )}
     </div>

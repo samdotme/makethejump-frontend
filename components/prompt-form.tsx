@@ -27,7 +27,10 @@ export function PromptForm({
   const router = useRouter()
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  const [isLoading, setIsLoading] = useContext(ChatLoadingContext)
+  const {
+    loading: [isLoading, setIsLoading],
+    error: [isError, setIsError]
+  } = useContext(ChatLoadingContext)
   const [error, setError] = useState<Error | null>(null)
   const [messages, setMessages] = useContext(ChatMemoryContext)
 
@@ -41,6 +44,7 @@ export function PromptForm({
     e.preventDefault()
 
     setIsLoading(true)
+    setIsError(false)
 
     if (window.innerWidth < 600) {
       ;(e.target as HTMLFormElement)['message']?.blur()
@@ -77,7 +81,7 @@ export function PromptForm({
         }
       ])
     } catch (error) {
-      setError(error as Error)
+      setIsError(true)
     } finally {
       setIsLoading(false)
     }

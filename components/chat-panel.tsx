@@ -28,9 +28,10 @@ export function ChatPanel({
   scrollToBottom
 }: ChatPanelProps) {
   const [messages, setMessages] = useContext(ChatMemoryContext)
-  // const [loading, setLoading] = useState(true)
-  const [isLoading, setIsLoading] = useContext(ChatLoadingContext)
-  const [error, setError] = useState<Error | null>(null)
+  const {
+    loading: [isLoading, setIsLoading],
+    error: [isError, setIsError]
+  } = useContext(ChatLoadingContext)
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
 
   const exampleMessages = [
@@ -82,6 +83,9 @@ export function ChatPanel({
                     }
                   ])
 
+                  setIsLoading(true)
+                  setIsError(false)
+
                   try {
                     const res = await fetch(
                       `${process.env.NEXT_PUBLIC_BOT_ENDPOINT}/makethejump/bot?prompt=${encodeURIComponent(example.message)}`
@@ -100,7 +104,7 @@ export function ChatPanel({
                       }
                     ])
                   } catch (error) {
-                    setError(error as Error)
+                    setIsError(true)
                   } finally {
                     setIsLoading(false)
                   }
