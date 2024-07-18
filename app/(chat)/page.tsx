@@ -6,7 +6,7 @@ import { Session } from '@/lib/types'
 import { getMissingKeys } from '@/app/actions'
 
 export const metadata = {
-  title: 'Cat Cafe Chatbot by [Your Name]'
+  title: 'Cat Cafe Chatbot backed by an LLM'
 }
 
 export default async function IndexPage() {
