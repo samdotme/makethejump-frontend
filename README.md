@@ -35,6 +35,12 @@ Copy the file `.env.example` and paste it. Then rename it to `.env.local`.
 
 Then change `NEXT_PUBLIC_AUTHOR_NAME` to be your name.
 
+## Install packages
+
+You'll need to install local packages to support the application. This can be accomplished with the following command:
+
+    npm install
+
 ## Run Locally
 
 To start the project locally, you can run the following command:
