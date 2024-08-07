@@ -46,9 +46,9 @@ export function ChatPanel({
       message: 'How many cats are available for adoption right now?'
     },
     {
-      heading: 'Give me a form',
-      subheading: 'to adopt your oldest cat',
-      message: `Give me a form to adopt your oldest cat`
+      heading: 'How often should I',
+      subheading: 'bathe my cat?',
+      message: `How often should I bathe my cat?`
     },
     {
       heading: 'Which of your cats',
