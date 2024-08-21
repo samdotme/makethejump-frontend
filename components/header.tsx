@@ -8,7 +8,7 @@ export function Header() {
           fallback={<div className="flex-1 overflow-auto" />}
         ></React.Suspense>
       </div>
-      <div className="flex items-center justify-center space-x-2"><img src="/catbot-logo-orange.svg"/></div>
+      <div className="flex items-center justify-center space-x-2"><a href="/"><img src="/catbot-logo-orange.svg"/></a></div>
     </header>
   )
 }
