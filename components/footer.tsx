@@ -12,7 +12,7 @@ export function FooterText({ className, ...props }: React.ComponentProps<'p'>) {
       )}
       {...props}
     >
-      Learn to build your own AI chatbot at{' '}
+      Learn AI principles by building your own AI chatbot at{' '}
       <ExternalLink href="https://makethejump.ai/developer">
         makethejump.ai/developer
       </ExternalLink>
